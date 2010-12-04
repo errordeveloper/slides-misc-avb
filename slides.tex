@@ -1,0 +1,35 @@
+
+How AVB uses the ethernet networking?
+
+\begin{itemize}
+	\item No IP addresses and ports, use streams instead
+	\item Distributed clocking hierarchy
+	\item Allocate resources for streams
+	\item Monitor throutput and latency of streams
+
+% Precision Time Protocol (version 2)
+
+{ Precision Time Protocol (PTP) version 2 is an IEEE standard 1588-2008,
+  for AVB use, a subset has been defined under IETF standard 802.1AS.}
+\begin{itemize}
+
+	\item Applications of PTP:
+	\begin{itemize}
+		\item Industrial Control
+		\item Test and Measurment Equipment
+		\item A/V Streaming and Control
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}
+	\item Design Solutions
+	\begin{itemize}
+		\item National Semiconductors DP83865 Ethernet Physical Layer Chip with P1588 
+		\item XMOS AVB Reference Design Software
+		\item Marvell Kirwood SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
+	\end{itemize}
+\end{itemize}
+
+{ IEEE P1722.1 defines the higher layer protocol for IEEE P1722 based devices.
+This standard covers device discovery, device enumeration, connection management
+and device control protocols for finding and connecting IEEE 1722 based devices. }
