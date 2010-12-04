@@ -1,3 +1,31 @@
+{ Why AVB is needed? }
+
+\begin{itemize}
+	\item Designed for audio and video real-time straming and control over Ethernet
+	\item Common standard approved by joint group manufacturers and IETF
+	\item Cost-effective cabling and hardware technology
+	\item Simple to use and and set-up
+	\item Robust operation achived by a combination of specific prtocols
+\end{itemize}
+
+{ Backgorund Overview }
+
+Networking protocols (such as TCP, IP and UDP) do not implement time synctronization and
+were designed for more general data transmission and in a different scale of deployment.
+
+A set of approaches exists using RTP and RTSP, as well as multicasting, hower these
+are used for compressed latency tollerant audio or video streaming in conferencing and media.
+
+Both audio and video manufacturers have already developed their own approaches to achive
+similar capabilities and a numeber of standards exist using specific digital protocols with
+specialized cabling and hardware, but these are point-to-point and cannot be combined with each other
+\emph{(Examples: MADI, SDI, HDMI, AES/EBU, OptoCore, I2S, IEEE 1394 and USB)}.
+Proprietary networking systems are already using Ethernet, but the approach is not uniformal
+and cross-compatibility of these systems is a major issue for audio engineers
+\emph{(Examples: CobraNet, EtherSound and AES50)}.
+Control protocols is another important subject, which is not in the scope of this presentation.
+
+{ AVB addresses multiple market segments, including professional A/V and consumer entertainment. }
 
 How AVB uses the ethernet networking?
 
@@ -6,11 +34,20 @@ How AVB uses the ethernet networking?
 	\item Distributed clocking hierarchy
 	\item Allocate resources for streams
 	\item Monitor throutput and latency of streams
+\end{itemize}
+
+{ Underlining Base Standards }
+
+	\item P1722
+	\time P1588 (802.1AS)
+
+802.1Q Virtual Local Area Networks
 
 % Precision Time Protocol (version 2)
 
 { Precision Time Protocol (PTP) version 2 is an IEEE standard 1588-2008,
-  for AVB use, a subset has been defined under IETF standard 802.1AS.}
+for AVB use, a subset has been defined under IETF standard 802.1AS.
+Unlike other protocols in AVB, PTP is already used in other application areas.}
 \begin{itemize}
 
 	\item Applications of PTP:
@@ -26,10 +63,19 @@ How AVB uses the ethernet networking?
 	\begin{itemize}
 		\item National Semiconductors DP83865 Ethernet Physical Layer Chip with P1588 
 		\item XMOS AVB Reference Design Software
-		\item Marvell Kirwood SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
+		\item Marvell Kirwood ARM SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
+		\item Freescale MPC831X PPC SoC
 	\end{itemize}
 \end{itemize}
 
+{ IEEE 1588 Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems (also known at PTP). }
+{ IEEE Layer 2 Transport Protocol Working Group for Time-Sensitve Streams. }
 { IEEE P1722.1 defines the higher layer protocol for IEEE P1722 based devices.
 This standard covers device discovery, device enumeration, connection management
 and device control protocols for finding and connecting IEEE 1722 based devices. }
+
+{ Peformance Metrics }
+\item Network: 100MB Ethernet
+\item Latency: 
+\item Channels: ?
+\item Audio Quality: 96k/32bit ?
