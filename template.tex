@@ -1,0 +1,296 @@
+% $Header: /cvsroot/latex-beamer/latex-beamer/solutions/conference-talks/conference-ornate-20min.en.tex,v 1.7 2007/01/28 20:48:23 tantau Exp $
+
+\documentclass{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[english]{babel}
+% or whatever
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+
+\title[WMI] % (optional, use only with long paper titles)
+{WMI - Wireless Music Instruments}
+
+\subtitle
+{BSc Final Year Project}
+
+\author[Dmitrichenko, Ilya] % (optional, use only with lots of authors)
+{Ilya Dmitrichenko <errordeveloper@gmail.com>}
+%{F.~Author\inst{1} \and S.~Another\inst{2}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+%{
+%  \inst{1}%
+%  Department of Computer Science\\
+%  University of Somewhere
+%  \and
+%  \inst{2}%
+%  Department of Theoretical Philosophy\\
+%  University of Elsewhere}
+%% - Use the \inst command only if there are several affiliations.
+%% - Keep it simple, no one is interested in your street address.
+
+\date[November 2010] % (optional, should be abbreviation of conference name)
+%{Conference on Fabulous Presentations, 2003}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+\subject{Embedded Electronics Engineering Project Presentation}
+% This is only inserted into the PDF information catalog. Can be left out. 
+
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%%\AtBeginSubsection[]
+%%{
+%%  \begin{frame}<beamer>{Outline}
+%%    \tableofcontents[currentsection,currentsubsection]
+%%  \end{frame}
+%%}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+
+% Structuring a talk is a difficult task and the following structure
+% may not be suitable. Here are some rules that apply for this
+% solution: 
+
+% - Exactly two or three sections (other than the summary).
+% - At *most* three subsections per section.
+% - Talk about 30s to 2min per frame. So there should be between about
+%   15 and 30 frames, all told.
+
+% - A conference audience is likely to know very little of what you
+%   are going to talk about. So *simplify*!
+% - In a 20min talk, getting the main ideas across is hard
+%   enough. Leave out details, even if it means being less precise than
+%   you think necessary.
+% - If you omit details that are vital to the proof/implementation,
+%   just say so once. Everybody will be happy with that.
+
+\section{Motivation}
+
+\subsection{Main Application Area}
+
+\begin{frame}{Main Application Area}
+\begin{itemize}
+
+	\item{IP WSN for Music Performance \& Recording}
+
+	\begin{itemize}
+
+	\item Why WSN?
+	\item Why IP?
+
+	\end{itemize}
+
+	\item{Constrains:}
+
+	\begin{itemize}
+		
+		\item Deployability and Support
+		\item Performance and Robustness
+
+	\end{itemize}
+
+	\item{Commercial and Practical Interests}
+
+\end{itemize}
+\end{frame}
+
+\subsection{Additional Aspects \& Tasks}
+\begin{frame}{Additional Aspects \& Tasks}
+
+\begin{itemize}
+	
+	\item Customised Linux OS
+
+	\item Facility scripts and libraries
+
+	\item DSP algorithms
+
+	\item MIDI over WPAN
+
+	\item WSN for audio measurements
+
+\end{itemize}
+\end{frame}
+
+\section{Design and Implementation}
+
+\subsection{Hardware Element} 
+\begin{frame}{Hardware Element}
+
+\begin{itemize}
+
+	\item Latest low-power microcontroller with integrated radio
+
+	\item Low-coast development system
+
+	\item Robust interconnection design
+
+	\item Various sensors to be tested for suitability
+
+\end{itemize}
+\end{frame}
+
+\subsection{Software Element}
+\begin{frame}{Software Element}
+
+\begin{itemize}
+
+	\item Utilise open source free RTOS
+
+	\item Test all and use the best
+
+	\item Port the driver code for the transceiver
+	
+	\item Board-specific abstraction and sensor drivers
+
+\end{itemize}
+\end{frame}
+
+\subsection{Project Work Plan}
+
+\begin{frame}{Roadmap}
+
+\begin{itemize}
+
+	\item Development boards and software testing \pause
+	\item Publish the code on the website
+	\newline after the first tests are successful \pause
+
+	\item Driver code is due by the interim report \pause
+
+	\item Application code and DSP system is due in the final stage
+
+\end{itemize}
+\end{frame}
+
+
+\section{Summary \& References}
+
+\subsection{Scope Summary}
+\begin{frame}{Scope Summary}
+
+  % Keep the summary *very short*.
+  \begin{itemize}
+   \pause
+  \item
+    This is quite a \alert{challenging project}
+   \pause
+  \item
+    It involves \alert{various aspects}
+   \newline spanning multiple areas in embedded system design
+   \pause
+  \item
+    There is a number of concerns and conclusions
+    \newline to be made upon competition of \alert{the experiment}
+  \end{itemize}
+
+  \pause
+  
+  % The following outlook is optional.
+  \vskip0pt plus.5fill
+  \begin{itemize}
+  \item
+    \emph{Commitment}
+    \begin{itemize}
+    \item
+      \emph{Experiments and Tests}
+    \item
+      \emph{Contribute to the "Open Source"}
+    \end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\subsection*{For Further Information}
+
+\begin{frame}{For Further Information}
+    
+\begin{thebibliography}{10}
+    
+  \beamertemplatearticlebibitems
+
+  \bibitem{ProjectWebsite}
+    I.~Dmitrichenko
+    \newblock {\em Wireless Music Instruments}
+    \newblock {\em Final Year Project Website}
+    \newblock {\em http://wmi.new-synth.info/}
+ 
+    
+\end{thebibliography}
+\end{frame}
+
+\end{document}
