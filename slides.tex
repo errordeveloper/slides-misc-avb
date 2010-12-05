@@ -2,7 +2,7 @@
 
 \begin{itemize}
 	\item Designed for audio and video real-time straming and control over Ethernet
-	\item Common standard approved by joint group manufacturers and IETF
+	\item Common standard approved by joint group of manufacturers as part of IEEE 802
 	\item Cost-effective cabling and hardware technology
 	\item Simple to use and and set-up
 	\item Robust operation achived by a combination of specific prtocols
@@ -47,18 +47,33 @@ How AVB uses the ethernet networking?
 \end{itemize}
 
 { Underlining Base Standards }
+IEEE 802.1 - Network Layer-1:
 
-	\item P1722 The AVB Transport Protocol
-	\time P1588 (802.1AS)
+	{ 802.1Q - Virtual Bridged Local Area Network }
 
-\item \dots
+	{ 802.1Qav - Forwarding and Queuing Enhancements for Time-Sensitive Streams }
 
-802.1Q Virtual Local Area Networks
+	{ 802.1ak - Multiple Registration Protocol }
+	{ 802.1Qat - Stream Reservation Protocol (SRP)}
 
-% Precision Time Protocol (version 2)
+	{ 802.1AS - Timing and Synchronization (based on P1588)}
 
-{ Precision Time Protocol (PTP) version 2 is an IEEE standard 1588-2008.
-For AVB use, a subset has been defined under IETF standard 802.1AS.
+	{ 802.1BA - Audio Video Bridging Systems }
+
+Network Layers 2 and 3:
+	\item P1722 Encapsulation Format for A/V Transport in AVB (AVBTP)
+	\item P1733 Correlation of RTP timestamps with PTP
+Other:
+	\item P1588 Prescision Time Protocol (PTP)
+
+
+
+{ Clock Syncronization }
+
+%{ 802.1AS - Timing and Synchronization for Time-Sensitive Applications in Bridged Local Area Networks }
+
+{ Precision Time Protocol (PTP) version 2 is an IEEE standard P1588-2008.
+For AVB use, a subset has been defined under standard 802.1AS.
 Unlike other protocols in AVB, PTP is already used in other application areas.}
 \begin{itemize}
 	\item Applications of PTP:
@@ -78,12 +93,75 @@ sync precision of tens of nano seconds is achivable on a network that fully
 implements PTP in switches and end-points. A clock hierarchy of master and
 slave devices, including boundry and transparent clocks applies no such network. }
 
-{ IEEE 1588 Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems (also known at PTP). }
-{ IEEE Layer 2 Transport Protocol Working Group for Time-Sensitve Streams. }
-{ IEEE P1722.1 defines the higher layer protocol for IEEE P1722 based devices.
-This standard covers device discovery, device enumeration, connection management
-and device control protocols for finding and connecting IEEE 1722 based devices. }
+{ Virtual Networks }
 
+IEEE defined 802.1Q as a base standard for Virtual Bridged Local Area Networks,
+in order to implement A/V Bridgin two ammendments were made to 802.1Q:
+\begin{itemize}
+	\item 802.Qat - Stream Reservation Protocol
+	\item 802.1Qav - Forwarding and Queuing Enhancements for Time-Sensitive Streams
+\end{itemize}
+
+Combination of this two protocols allows allows traffic with AVB tag to take 75\% of total
+LAN bandwidth and also make sure the buffered packets are syncronized with PTP clock.
+
+{ Stream Reservation and Traffic Shaping }
+
+802.1Qat and 802.1Qav together form the base for concepts of
+\item \texttt{streams} and \texttt{channels}
+\item \texttt{talkers} and \texttt{listeners}
+
+It also provides admisson control and priority tagging.
+
+In terms of 802.1Qat, talkers advertise their stream ID
+\item 48-bit MAC address + 16-bit ID the stream.
+Additionally QoS requirenments are advertised.
+All bridges are required to
+\item verify the bandwidth avaliablity, and
+\item propagate the advertise message.
+If the bandwidth is insuficient, the failure is reported.
+When a listener registers a stream, the resources are locked down.
+The resources are unlocked when it de-registers.
+
+802.1Qav is designed to preven packet loss in buffers and syncronize with PTP.
+It defines flow control algorithms to provide:
+\item predictable latency of the path and lower the jitter
+\item syncronized forwarding of buffer queues
+\item prevention of "bunching"
+
+%%============================%%
+
+{ Channels and Devices }
+
+On AVB network end-point devices are classified as
+\begin{itemize}
+	\item \texttt{talkers} - advertise stream ID
+	\item \texttt{listeners} - register to recieve streams
+\begin{itemize}
+
+Audio channels are grouped into streams
+Combination of video and audio frames in the streams are groupped as slots
+Stream originates from one \texttt{talker} and has the same clock
+Streams are routed on Ethernet L2 in unicast or multicast mode
+The channels are not split out of the stream on the network level
+From the network level only a stream ID (64-bit) is known
+Higher channel count in one stream reduces the bandwidth usage
+
+{  AVBTP - the Transport Protocol (IEEE P1722) }
+
+
+Various media formats can be used
+(such as MPEG (ISO), PCM or AM824 and others)
+
+{ Control and Mangement }
+
+DECC (IEEE P1722.1) is the higher layer protocol covering
+\begin{itemize}
+	\item device discovery
+	\item device enumeration
+	\item connection management
+	\item device control 
+\end{itemize}
 
 %%============================%%
 
@@ -101,12 +179,37 @@ and device control protocols for finding and connecting IEEE 1722 based devices.
 %%============================%%
 
 { Peformance Metrics }
-\item Network: 100MB Ethernet
-\item Latency: >2ms
-\item Channels: ?
-\item Audio Quality: 96k/24-bit ?
+{Source: XMOS reference design documentation}
+\begin{itemize}
+	\item Network: 100MB Ethernet
+	\begin{itemize}
+		\item Channels: 32x32 and 16x16
+		\item Audio Quality: 48kHz/24-bit and 96kHz/24-bit
+	\end{itemize}
+	\item Network: 1GB Ethernet
+	\begin{itemize}
+		\item Channels: 72x72 and 36x36
+		\item Audio Quality: 48kHz/24-bit and 96kHz/24-bit
+	\end{itemize}
+\end{itemize}
 
-\item Network: 1GB Ethernet
-\item Latency: >2ms
-\item Channels: 300 x 300
-\item Audio Quality: 48kHz/24-bit
+
+{Source: Harman product presentation}
+\begin{itemize}
+	\item Network: 1GB Ethernet
+	\item Latency: <2ms
+	\item Channels: 300 x 300
+	\item Audio Quality: 48kHz/24-bit
+\end{itemize}
+
+{ Bandwidth of channels per stream }
+\begin{table}
+\caption{Source: XMOS reference design documentation}
+\begin{tabular} { r | c | c | c | }
+$\fract{\tt{SR} kHz}{\tt{BW} Mbps}$ & 48 & 96 & 192 \\ \hline
+			7.81        & 2 or 1  &-   &- \\ \hline
+			10.88       & 4  & 2 or 1  &- \\ \hline
+			17.02       & 8  & 4  & 2 or 1 \\ \hline
+			29.31       & 16 & 8  & 4 \\ \hline
+			53.89       & 32 & 16 & 8 \\ \hline
+\end{tabular}
