@@ -11,10 +11,7 @@
 { Backgorund Overview }
 
 Networking protocols (such as TCP, IP and UDP) do not implement time synctronization and
-were designed for more general data transmission and in a different scale of deployment.
-
-A set of approaches exists using RTP and RTSP, as well as multicasting, hower these
-are used for compressed latency tollerant audio or video streaming in conferencing and media.
+were designed for more general data transmission on a different scale of deployment.
 
 Both audio and video manufacturers have already developed their own approaches to achive
 similar capabilities and a numeber of standards exist using specific digital protocols with
@@ -22,8 +19,21 @@ specialized cabling and hardware, but these are point-to-point and cannot be com
 \emph{(Examples: MADI, SDI, HDMI, AES/EBU, OptoCore, I2S, IEEE 1394 and USB)}.
 Proprietary networking systems are already using Ethernet, but the approach is not uniformal
 and cross-compatibility of these systems is a major issue for audio engineers
-\emph{(Examples: CobraNet, EtherSound and AES50)}.
+\emph{(Examples: CobraNet, EtherSound, Aviom, REAC and AES50)}.
 Control protocols is another important subject, which is not in the scope of this presentation.
+
+In general, it has been proven that Ethernet is capable to handle high definition audio and video
+with reasonably low latency. Various technolodies listed above have achived this in different ways.
+
+There certainly is a way of fine-tuning off-the-shelf networking equipment and software to provide
+realiable preformance for streaming audio from one computer to another using cross-over CAT5 connection
+or a single switch. Also applying a set of fine-tunned QoS and trafic shaping rules on comodity
+equipment may in theory provide reasonable performance in larger LAN, assuming there is no other traffic.
+
+Another set of approaches exists using RTP and RTSP, as well as multicasting, hower these
+are used for compressed and latency-tollerant audio or video streaming in conferencing and media.
+
+
 
 { AVB addresses multiple market segments, including professional A/V and consumer entertainment. }
 
@@ -32,41 +42,41 @@ How AVB uses the ethernet networking?
 \begin{itemize}
 	\item No IP addresses and ports, use streams instead
 	\item Distributed clocking hierarchy
-	\item Allocate resources for streams
-	\item Monitor throutput and latency of streams
+	\item Pre-allocated resources for streams
+	\item Monitoring of throutput and latency
 \end{itemize}
 
 { Underlining Base Standards }
 
-	\item P1722
+	\item P1722 The AVB Transport Protocol
 	\time P1588 (802.1AS)
+
+\item \dots
 
 802.1Q Virtual Local Area Networks
 
 % Precision Time Protocol (version 2)
 
-{ Precision Time Protocol (PTP) version 2 is an IEEE standard 1588-2008,
-for AVB use, a subset has been defined under IETF standard 802.1AS.
+{ Precision Time Protocol (PTP) version 2 is an IEEE standard 1588-2008.
+For AVB use, a subset has been defined under IETF standard 802.1AS.
 Unlike other protocols in AVB, PTP is already used in other application areas.}
 \begin{itemize}
-
 	\item Applications of PTP:
 	\begin{itemize}
 		\item Industrial Control
 		\item Test and Measurment Equipment
 		\item A/V Streaming and Control
+		\item Telecommunications
 	\end{itemize}
 \end{itemize}
 
-\begin{itemize}
-	\item Design Solutions
-	\begin{itemize}
-		\item National Semiconductors DP83865 Ethernet Physical Layer Chip with P1588 
-		\item XMOS AVB Reference Design Software
-		\item Marvell Kirwood ARM SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
-		\item Freescale MPC831X PPC SoC
-	\end{itemize}
-\end{itemize}
+{ PTP defines a number of algorithms to find the delay times on the network
+and adjust the clock on all devices to the same time base. This clock is then
+used to re-alling audio and video frames recieved in data packets.
+This functionality needs to be implemented in physical layer hardware and
+sync precision of tens of nano seconds is achivable on a network that fully
+implements PTP in switches and end-points. A clock hierarchy of master and
+slave devices, including boundry and transparent clocks applies no such network. }
 
 { IEEE 1588 Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems (also known at PTP). }
 { IEEE Layer 2 Transport Protocol Working Group for Time-Sensitve Streams. }
@@ -74,8 +84,29 @@ Unlike other protocols in AVB, PTP is already used in other application areas.}
 This standard covers device discovery, device enumeration, connection management
 and device control protocols for finding and connecting IEEE 1722 based devices. }
 
+
+%%============================%%
+
+\begin{itemize}
+	\item Design Solutions
+	\begin{itemize}
+		\item National Semiconductors DP83640 Ethernet Physical Layer Chip with P1588 
+		\item XMOS AVB Reference Design Software
+		\item Marvell Kirwood ARM SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
+		\item Freescale MPC831X PPC SoC
+		\item Lab-X and Xilinx FPGA cores
+	\end{itemize}
+\end{itemize}
+
+%%============================%%
+
 { Peformance Metrics }
 \item Network: 100MB Ethernet
-\item Latency: 
+\item Latency: >2ms
 \item Channels: ?
-\item Audio Quality: 96k/32bit ?
+\item Audio Quality: 96k/24-bit ?
+
+\item Network: 1GB Ethernet
+\item Latency: >2ms
+\item Channels: 300 x 300
+\item Audio Quality: 48kHz/24-bit
