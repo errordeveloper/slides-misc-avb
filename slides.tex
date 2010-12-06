@@ -71,9 +71,11 @@
 	\item IEEE P1394
 \end{itemize}}
 
-{Both audio and video manufacturers have already developed their own approaches to achieve
-similar capabilities and a number of standards exist using specific digital protocols with
-specialized cabling and hardware and cannot be combined with each other!}
+{A/V equipment manufacturers have already developed \newline
+their own approaches to achieve similar capabilities and \newline
+a number of standards exist using specific serial data protocols \newline
+with specialized cabling and hardware.  However, these \newline
+cannot be combined with each other!}
 
 \break
 
@@ -88,7 +90,7 @@ specialized cabling and hardware and cannot be combined with each other!}
 
 {These audio networking systems are already using Ethernet. \newline
 The approach is not uniformal and cross-compatibility \newline
-of these systems is a major issue for audio engineers!}
+of these systems is a major issue for field engineers!}
 
 \break
 
@@ -97,24 +99,25 @@ of these systems is a major issue for audio engineers!}
 	\begin{itemize}
 		\item do not implement time synchronization
 		\item were designed for more general data transmission
-		\item appied on a different scale of deployment
+		\item applied on a different scale of deployment
 	\end{itemize}
 
 \item It has been generally proven that \newline
 	\emph{Ethernet is capable to handle high definition A/V \newline
 	with reasonable quality of service (QoS) }
-\item Some technologies listed above achived it\newline 
+\item Some technologies listed above achieved it\newline 
 	with various approaches (mostly proprietary)
 
 \break
 
 There certainly is a way of fine-tuning off-the-shelf networking equipment and software to provide
-reliable performance for streaming audio from one computer to another using cross-over \emph{\texttt{CAT5}}
-connection or a single switch. Also applying a set of fine-tunned QoS and traffic shaping rules on commodity
-equipment may in theory provide reasonable performance in a larger LAN, assuming there is no other traffic.
+reliable performance for streaming audio from one computer to another using cross-over \emph{CAT5}
+connection or a single switch. Applying a set of fine-tunned \emph{QoS} and \emph{traffic shaping}
+rules on commodity equipment may in theory provide reasonable performance in a larger \emph{LAN},
+\newline assuming there is no other traffic.
 
-Another set of approaches exists using RTP and RTSP combined with multicasting, however these
-are used for compressed and latency-tollerant media streaming in conferencing and entertainment.
+Another set of approaches exists using \emph{RTP} and \emph{RTSP} combined with \emph{multicasting}, however these
+are used for \emph{compressed latency-tolerant media streaming} in conferencing and entertainment.
 
 % Control protocols is another important subject, which is not in the scope of this presentation.
 
@@ -132,7 +135,7 @@ are used for compressed and latency-tollerant media streaming in conferencing an
 	\item No IP addresses and ports, use streams instead
 	\item Distributed precise clocking hierarchy
 	\item Pre-allocated resources for streams
-	\item Monitoring of throutput and latency
+	\item Monitoring of throughput and latency
 \end{itemize}
 
 \end{frame}
@@ -200,13 +203,14 @@ Unlike other new protocols, \newline PTP is already used in other application ar
 
 \break
 
-{ PTP defines a number of algorithms to find the delay times on the network
-and adjust the clock on all devices to the same time base. This clock is then
+{ \emph{PTP} defines a number of algorithms to \emph{find the delay times} on the network
+and \emph{adjust the clock} on all devices to \emph{the same time base}. This clock is then
 used to re-align audio and video frames received in data packets.
-This functionality needs to be implemented in physical layer hardware and
-sync precision of tens of nano seconds is achievable on a network that fully
-implements PTP in switches and end-points. A clock hierarchy of master and
-slave devices, including boundary and transparent clocks applies no such network. }
+This functionality needs to be implemented in \emph{physical layer} hardware and
+sync precision of \emph{tens of nano seconds} is achievable on a network that fully
+implements \emph{PTP} in \emph{switches} and \emph{end-points}. \newline
+A clock hierarchy of \emph{master} and \emph{slave} devices,
+including \emph{boundary} and \emph{transparent} clocks applies no such network. }
 
 \end{frame}
 
@@ -257,18 +261,20 @@ LAN bandwidth and also make sure the buffered packets are synchronized with PTP 
 
 \texttt{802.1Qav} is designed to:
 
+\emph{
 \begin{itemize}
 	\item prevent packet loss in buffers
 	\item synchronize queued packets with PTP clock
-\end{itemize}
+\end{itemize}}
 
 It defines flow control algorithms to provide:
 
+\emph{
 \begin{itemize}
 	\item predictable latency of the path and lower the jitter
 	\item synchronized forwarding of buffer queues
 	\item prevention of packet "bunching"
-\end{itemize}
+\end{itemize}}
 
 \break
 
@@ -281,10 +287,10 @@ It defines flow control algorithms to provide:
 	\end{itemize}
 
 	\item If the bandwidth is insufficient \newline
-		$\rightarrow$ the failure is reported
+		$\rightarrow$ \emph{the failure is reported}
 	\item When a listener registers a stream \newline
-		$\rightarrow$ the resources are locked down
-	\item The resources are unlocked when it de-registers
+		$\rightarrow$ \emph{the resources are locked down}
+	\item The resources are \emph{unlocked when it de-registers}
 
 \end{itemize}
 
@@ -299,12 +305,12 @@ It defines flow control algorithms to provide:
 On AVB network end-point devices are classified as
 \begin{itemize}
 	\item \texttt{talkers} - advertise streams
-	\item \texttt{listeners} - suscribe to recieve streams
+	\item \texttt{listeners} - subscribe to receive streams
 \end{itemize}
-Then the set of protocol ensure
+Then the set of first layer protocols ensure
 \begin{itemize}
-	\item best-effort traffic throughoutput
-	\item synchronization in transmission and on the end-points
+	\item best-effort traffic throughput
+	\item synchronization \emph{in transmission} and \emph{on end-points}
 \end{itemize}
 
 \break
@@ -312,7 +318,7 @@ Then the set of protocol ensure
 \begin{itemize}
 
 \item Audio channels are grouped into \emph{streams}
-\item Video or audio channels are refered to as \emph{slots}
+\item Video or audio channels are referred to as \emph{slots}
 \item Stream originates from \emph{one talker} and shares \emph{one clock}
 \item Routed on second layer in \emph{unicast} or \emph{multicast} mode
 \item The channels are not split out of the stream in the network
@@ -375,7 +381,7 @@ Then the set of protocol ensure
 
 \subsection{What AVB can do?}
 
-\begin{frame}{ Peformance Metrics }
+\begin{frame}{ Performance Metrics }
 
 \emph{Source: XMOS reference design documentation}
 \begin{itemize}
