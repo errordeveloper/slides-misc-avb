@@ -1,185 +1,383 @@
-{ Why AVB is needed? }
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamercovered{transparent}
+}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym}
+
+\title[AVB]{Audio/Video Bridging on Local Area Networks}
+
+%\subtitle{Overview of latest technology for digital audio streaming on Ethernet networks.}
+
+\subject{Audio Electronics Design}
+
+\author[Dmitrichenko, Ilya]{Ilya Dmitrichenko <errordeveloper@gmail.com>}
+
+\institute[London Metropolitan University]{}
+
+\date[\today]
+
+%%============================%%
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\tableofcontents[pausesections]
+\end{frame}
+
+%%============================%%
+
+\section{Motivation}
+
+\subsection{Overview}
+
+\begin{frame}{ Why AVB is needed? }
 
 \begin{itemize}
-	\item Designed for audio and video real-time straming and control over Ethernet
-	\item Common standard approved by joint group of manufacturers as part of IEEE 802
+	\item Designed for real-time streaming of audio and video data
+	\item Common standard approved by joint group \newline of manufacturers as part of \emph{\texttt{IEEE P802}}
 	\item Cost-effective cabling and hardware technology
 	\item Simple to use and and set-up
-	\item Robust operation achived by a combination of specific prtocols
+	\item Robust operation achieved by a combination \newline of specifically designed protocols
 \end{itemize}
 
-{ Backgorund Overview }
+\emph{ AVB addresses multiple market segments, \newline including professional A/V and consumer entertainment. }
 
-Networking protocols (such as TCP, IP and UDP) do not implement time synctronization and
-were designed for more general data transmission on a different scale of deployment.
+\end{frame}
 
-Both audio and video manufacturers have already developed their own approaches to achive
-similar capabilities and a numeber of standards exist using specific digital protocols with
-specialized cabling and hardware, but these are point-to-point and cannot be combined with each other
-\emph{(Examples: MADI, SDI, HDMI, AES/EBU, OptoCore, I2S, IEEE 1394 and USB)}.
-Proprietary networking systems are already using Ethernet, but the approach is not uniformal
-and cross-compatibility of these systems is a major issue for audio engineers
-\emph{(Examples: CobraNet, EtherSound, Aviom, REAC and AES50)}.
-Control protocols is another important subject, which is not in the scope of this presentation.
+%%============================%%
 
-In general, it has been proven that Ethernet is capable to handle high definition audio and video
-with reasonably low latency. Various technolodies listed above have achived this in different ways.
+\subsection{Other Technologies}
+
+\begin{frame}[allowframebreaks]{ Background Overview }
+
+\emph{Point-to-Point Links:
+\begin{itemize}
+	\item MADI and AES/EBU
+	\item SDI and HDMI
+	\item OptoCore
+	\item I2S and USB
+	\item IEEE P1394
+\end{itemize}}
+
+{Both audio and video manufacturers have already developed their own approaches to achieve
+similar capabilities and a number of standards exist using specific digital protocols with
+specialized cabling and hardware and cannot be combined with each other!}
+
+\break
+
+\emph{Proprietary Solutions:
+\begin{itemize}
+\item CobraNet
+\item EtherSound
+\item Aviom
+\item REAC
+\item AES50
+\end{itemize}}
+
+{These audio networking systems are already using Ethernet. \newline
+The approach is not uniformal and cross-compatibility \newline
+of these systems is a major issue for audio engineers!}
+
+\break
+
+\begin{itemize}
+	\item{ Networking protocols \emph{(such as TCP, UDP and IP)} }
+	\begin{itemize}
+		\item do not implement time synchronization
+		\item were designed for more general data transmission
+		\item appied on a different scale of deployment
+	\end{itemize}
+
+\item It has been generally proven that \newline
+	\emph{Ethernet is capable to handle high definition A/V \newline
+	with reasonable quality of service (QoS) }
+\item Some technologies listed above achived it\newline 
+	with various approaches (mostly proprietary)
+
+\break
 
 There certainly is a way of fine-tuning off-the-shelf networking equipment and software to provide
-realiable preformance for streaming audio from one computer to another using cross-over CAT5 connection
-or a single switch. Also applying a set of fine-tunned QoS and trafic shaping rules on comodity
-equipment may in theory provide reasonable performance in larger LAN, assuming there is no other traffic.
+reliable performance for streaming audio from one computer to another using cross-over \emph{\texttt{CAT5}}
+connection or a single switch. Also applying a set of fine-tunned QoS and traffic shaping rules on commodity
+equipment may in theory provide reasonable performance in a larger LAN, assuming there is no other traffic.
 
-Another set of approaches exists using RTP and RTSP, as well as multicasting, hower these
-are used for compressed and latency-tollerant audio or video streaming in conferencing and media.
+Another set of approaches exists using RTP and RTSP combined with multicasting, however these
+are used for compressed and latency-tollerant media streaming in conferencing and entertainment.
 
+% Control protocols is another important subject, which is not in the scope of this presentation.
 
+\end{itemize}
 
-{ AVB addresses multiple market segments, including professional A/V and consumer entertainment. }
+\end{frame}
 
-How AVB uses the ethernet networking?
+%%============================%%
+
+\subsection{Introducing A/V Bridging}
+
+\begin{frame}{ How AVB uses the Ethernet network? }
 
 \begin{itemize}
 	\item No IP addresses and ports, use streams instead
-	\item Distributed clocking hierarchy
+	\item Distributed precise clocking hierarchy
 	\item Pre-allocated resources for streams
 	\item Monitoring of throutput and latency
 \end{itemize}
 
-{ Underlining Base Standards }
-IEEE 802.1 - Network Layer-1:
+\end{frame}
 
-	{ 802.1Q - Virtual Bridged Local Area Network }
+%%============================%%
 
-	{ 802.1Qav - Forwarding and Queuing Enhancements for Time-Sensitive Streams }
+\section{Implementation Overview}
 
-	{ 802.1ak - Multiple Registration Protocol }
-	{ 802.1Qat - Stream Reservation Protocol (SRP)}
+\subsection{Layers and Protocols}
 
-	{ 802.1AS - Timing and Synchronization (based on P1588)}
+\begin{frame}{ Underlining Base Standards }
 
-	{ 802.1BA - Audio Video Bridging Systems }
+\emph{IEEE 802.1 - Network Layer 1:}
 
-Network Layers 2 and 3:
-	\item P1722 Encapsulation Format for A/V Transport in AVB (AVBTP)
-	\item P1733 Correlation of RTP timestamps with PTP
-Other:
-	\item P1588 Prescision Time Protocol (PTP)
-
-
-
-{ Clock Syncronization }
-
-%{ 802.1AS - Timing and Synchronization for Time-Sensitive Applications in Bridged Local Area Networks }
-
-{ Precision Time Protocol (PTP) version 2 is an IEEE standard P1588-2008.
-For AVB use, a subset has been defined under standard 802.1AS.
-Unlike other protocols in AVB, PTP is already used in other application areas.}
 \begin{itemize}
-	\item Applications of PTP:
-	\begin{itemize}
-		\item Industrial Control
-		\item Test and Measurment Equipment
-		\item A/V Streaming and Control
-		\item Telecommunications
-	\end{itemize}
+
+	\item{ \emph{\texttt{802.1Q}} - \emph{Virtual Bridged Local Area Network (VLAN)} }
+
+	\item{ \emph{\texttt{802.1Qav}} - \emph{Time-Sensitive Forwarding and Queuing } }
+
+	\item{ \emph{\texttt{802.1ak}} - \emph{Multiple Registration Protocol } }
+
+	\item{ \emph{\texttt{802.1Qat}} - \emph{Stream Reservation Protocol (SRP) } }
+
+	\item{ \emph{\texttt{802.1AS}} - \emph{Timing and Synchronization \texttt{(P1588-2008)} } }
+
+	\item{ \emph{\texttt{802.1BA}} - \emph{Audio Video Bridging Systems } }
+
 \end{itemize}
+
+\emph{Network Layers 2 and 3:}
+
+\begin{itemize}
+	\item{ \emph{\texttt{P1723}} - \emph{Encapsulation Format for A/V Transport (AVBTP) } }
+	\item{ \emph{\texttt{P1733}} - \emph{Correlation of RTP timestamps with PTP } }
+\end{itemize}
+
+\emph{Other:}
+
+\begin{itemize}
+	\item{ \emph{\texttt{P1588}} - \emph{Precision Time Protocol (PTP) } }
+	\item{ \emph{\dots digital media format standards} }
+\end{itemize}
+
+\end{frame}
+
+%%============================%%
+
+\begin{frame}[allowframebreaks]{ Clock Synchronization }
+
+\begin{itemize}
+	\item \emph{ PTP version 2 is an IEEE standard \texttt{P1588-2008} }
+	\item \emph{ For AVB use, a subset has been defined under \texttt{802.1AS} }
+Unlike other new protocols, \newline PTP is already used in other application areas:
+
+%\emph{Applications of PTP:}
+\begin{itemize}
+	\item Industrial Control
+	\item Test and Measurement Equipment
+	\item A/V Streaming and Control
+	\item Telecommunications
+\end{itemize}
+
+\end{itemize}
+
+\break
 
 { PTP defines a number of algorithms to find the delay times on the network
 and adjust the clock on all devices to the same time base. This clock is then
-used to re-alling audio and video frames recieved in data packets.
+used to re-align audio and video frames received in data packets.
 This functionality needs to be implemented in physical layer hardware and
-sync precision of tens of nano seconds is achivable on a network that fully
+sync precision of tens of nano seconds is achievable on a network that fully
 implements PTP in switches and end-points. A clock hierarchy of master and
-slave devices, including boundry and transparent clocks applies no such network. }
+slave devices, including boundary and transparent clocks applies no such network. }
 
-{ Virtual Networks }
-
-IEEE defined 802.1Q as a base standard for Virtual Bridged Local Area Networks,
-in order to implement A/V Bridgin two ammendments were made to 802.1Q:
-\begin{itemize}
-	\item 802.Qat - Stream Reservation Protocol
-	\item 802.1Qav - Forwarding and Queuing Enhancements for Time-Sensitive Streams
-\end{itemize}
-
-Combination of this two protocols allows allows traffic with AVB tag to take 75\% of total
-LAN bandwidth and also make sure the buffered packets are syncronized with PTP clock.
-
-{ Stream Reservation and Traffic Shaping }
-
-802.1Qat and 802.1Qav together form the base for concepts of
-\item \texttt{streams} and \texttt{channels}
-\item \texttt{talkers} and \texttt{listeners}
-
-It also provides admisson control and priority tagging.
-
-In terms of 802.1Qat, talkers advertise their stream ID
-\item 48-bit MAC address + 16-bit ID the stream.
-Additionally QoS requirenments are advertised.
-All bridges are required to
-\item verify the bandwidth avaliablity, and
-\item propagate the advertise message.
-If the bandwidth is insuficient, the failure is reported.
-When a listener registers a stream, the resources are locked down.
-The resources are unlocked when it de-registers.
-
-802.1Qav is designed to preven packet loss in buffers and syncronize with PTP.
-It defines flow control algorithms to provide:
-\item predictable latency of the path and lower the jitter
-\item syncronized forwarding of buffer queues
-\item prevention of "bunching"
+\end{frame}
 
 %%============================%%
 
-{ Channels and Devices }
+\begin{frame}{ Virtual Networks (VLANs)}
+
+\emph{\texttt{802.1Q}} is a base for \emph{Virtual Bridged Local Area Networks}.
+Fallowing two amendments were made for \emph{A/V Bridging}:
+\begin{itemize}
+	\item \emph{\texttt{802.Qat}} - \emph{Stream Reservation Protocol}
+	\item \emph{\texttt{802.1Qav}} - \emph{Time-Sensitive Forwarding and Queuing}
+\end{itemize}
+
+{ Combination of this two protocols allows allows traffic with AVB tag to take 75\% of total
+LAN bandwidth and also make sure the buffered packets are synchronized with PTP clock. }
+
+\end{frame}
+
+%%============================%%
+
+\begin{frame}[allowframebreaks]{ Stream Reservation and Traffic Shaping }
+
+\emph{\texttt{802.1Qat}} and \emph{\texttt{802.1Qav}} introduce the concepts of
+\begin{itemize}
+	\item \emph{streams} and \emph{slots} or \emph{channels}
+	\item \emph{talkers} and \emph{listeners}
+\end{itemize}
+
+\begin{itemize}
+
+	\item Provide special \emph{admission control} and \emph{priority tagging}
+
+	\item Talkers advertise their stream
+
+	\begin{itemize}
+		\item \emph{(64-bit ID) = (48-bit MAC address) + (16-bit stream ID)}
+		\item \emph{QoS requirements}
+	\end{itemize}
+
+	\item Listeners request to register for streams
+
+	\item \emph{\texttt{802.1Qat}} is a software protocol
+
+\end{itemize}
+
+\break
+
+\texttt{802.1Qav} is designed to:
+
+\begin{itemize}
+	\item prevent packet loss in buffers
+	\item synchronize queued packets with PTP clock
+\end{itemize}
+
+It defines flow control algorithms to provide:
+
+\begin{itemize}
+	\item predictable latency of the path and lower the jitter
+	\item synchronized forwarding of buffer queues
+	\item prevention of packet "bunching"
+\end{itemize}
+
+\break
+
+\begin{itemize}
+	\item All \emph{A/V Bridges} are required to
+
+	\begin{itemize}
+		\item \emph{verify the bandwidth availability (between the end-points)}
+		\item \emph{propagate the advertise message (to and from end-points)}
+	\end{itemize}
+
+	\item If the bandwidth is insufficient \newline
+		$\rightarrow$ the failure is reported
+	\item When a listener registers a stream \newline
+		$\rightarrow$ the resources are locked down
+	\item The resources are unlocked when it de-registers
+
+\end{itemize}
+
+\end{frame}
+
+%%============================%%
+
+\subsection{Audio in The Network}
+
+\begin{frame}[allowframebreaks]{ Channels and Devices }
 
 On AVB network end-point devices are classified as
 \begin{itemize}
-	\item \texttt{talkers} - advertise stream ID
-	\item \texttt{listeners} - register to recieve streams
-\begin{itemize}
-
-Audio channels are grouped into streams
-Combination of video and audio frames in the streams are groupped as slots
-Stream originates from one \texttt{talker} and has the same clock
-Streams are routed on Ethernet L2 in unicast or multicast mode
-The channels are not split out of the stream on the network level
-From the network level only a stream ID (64-bit) is known
-Higher channel count in one stream reduces the bandwidth usage
-
-{  AVBTP - the Transport Protocol (IEEE P1722) }
-
-
-Various media formats can be used
-(such as MPEG (ISO), PCM or AM824 and others)
-
-{ Control and Mangement }
-
-DECC (IEEE P1722.1) is the higher layer protocol covering
-\begin{itemize}
-	\item device discovery
-	\item device enumeration
-	\item connection management
-	\item device control 
+	\item \texttt{talkers} - advertise streams
+	\item \texttt{listeners} - suscribe to recieve streams
 \end{itemize}
+Then the set of protocol ensure
+\begin{itemize}
+	\item best-effort traffic throughoutput
+	\item synchronization in transmission and on the end-points
+\end{itemize}
+
+\break
+
+\begin{itemize}
+
+\item Audio channels are grouped into \emph{streams}
+\item Video or audio channels are refered to as \emph{slots}
+\item Stream originates from \emph{one talker} and shares \emph{one clock}
+\item Routed on second layer in \emph{unicast} or \emph{multicast} mode
+\item The channels are not split out of the stream in the network
+\item From the network level only the \emph{unique stream ID} is known
+\item Higher channel count in one stream reduces the bandwidth
+
+\end{itemize}
+
+\end{frame}
 
 %%============================%%
 
+\begin{frame}{ Media Formats and Control }
+
+\emph{  AVBTP - the Transport Protocol (P1722) }
+
 \begin{itemize}
-	\item Design Solutions
-	\begin{itemize}
-		\item National Semiconductors DP83640 Ethernet Physical Layer Chip with P1588 
-		\item XMOS AVB Reference Design Software
-		\item Marvell Kirwood ARM SoC and 88E0000 Yukon \& LinkStreet Ethernet ICs
-		\item Freescale MPC831X PPC SoC
-		\item Lab-X and Xilinx FPGA cores
-	\end{itemize}
+
+	\item Various media formats can be used
+	\newline \emph{ (such as MPEG/ISO, PCM or AM824 and others) }
+
+	\item Allows for bridging of \emph{\texttt{P802}} and \emph{\texttt{P1394}} networks
+
+	\item Compatibility with IP streaming is facilitated by \emph{\texttt{P1733}} 
+
 \end{itemize}
+
+\emph{ DECC - the higher layer protocol (P1722.1)  }
+\begin{itemize}
+	\item Discovery
+	\item Enumeration
+	\item Connection
+	\item Control 
+\end{itemize}
+
+\end{frame}
 
 %%============================%%
 
-{ Peformance Metrics }
-{Source: XMOS reference design documentation}
+\section{Outlook on Design Perspectives}
+
+\subsection{New Hardware!}
+
+\begin{frame}{ Design Solutions }
+
+\begin{itemize}
+	\item National Semiconductors DP83640
+	\newline Ethernet Physical Layer Chip with P1588 
+	\item XMOS AVB Reference Design Software
+	\newline for XS1 Processor Architecture
+	\item Marvell Kirwood ARM SoC
+	\newline and 88E0000 Yukon \& LinkStreet Ethernet ICs
+	\item Freescale MPC831X PPC SoC
+	\item Lab-X and Xilinx FPGA cores
+\end{itemize}
+
+\end{frame}
+
+%%============================%%
+
+\subsection{What AVB can do?}
+
+\begin{frame}{ Peformance Metrics }
+
+\emph{Source: XMOS reference design documentation}
 \begin{itemize}
 	\item Network: 100MB Ethernet
 	\begin{itemize}
@@ -193,8 +391,7 @@ DECC (IEEE P1722.1) is the higher layer protocol covering
 	\end{itemize}
 \end{itemize}
 
-
-{Source: Harman product presentation}
+\emph{Source: Harman product presentation}
 \begin{itemize}
 	\item Network: 1GB Ethernet
 	\item Latency: <2ms
@@ -202,14 +399,68 @@ DECC (IEEE P1722.1) is the higher layer protocol covering
 	\item Audio Quality: 48kHz/24-bit
 \end{itemize}
 
-{ Bandwidth of channels per stream }
+
+\end{frame}
+
+%%============================%%
+
+\begin{frame}{ More Data : Bandwidth of channels per stream }
 \begin{table}
-\caption{Source: XMOS reference design documentation}
-\begin{tabular} { r | c | c | c | }
-$\fract{\tt{SR} kHz}{\tt{BW} Mbps}$ & 48 & 96 & 192 \\ \hline
-			7.81        & 2 or 1  &-   &- \\ \hline
-			10.88       & 4  & 2 or 1  &- \\ \hline
-			17.02       & 8  & 4  & 2 or 1 \\ \hline
-			29.31       & 16 & 8  & 4 \\ \hline
-			53.89       & 32 & 16 & 8 \\ \hline
+\caption{\emph{Source: XMOS reference design documentation}}
+
+\begin{tabular} {| r || c | c | c | } \hline
+$\frac{kHz}{Mbps}$ & \emph{48} & \emph{96} & \emph{192} \\ \hline \hline
+\emph{7.81} & 2 or 1 &- &- \\ \hline
+     \emph{10.88} & 4 & 2 or 1  &- \\ \hline
+     \emph{17.02} & 8 & 4 & 2 or 1 \\ \hline
+     \emph{29.31} & 16 & 8 & 4 \\ \hline
+     \emph{53.89} & 32 & 16 & 8 \\ \hline
 \end{tabular}
+
+\end{table}
+
+\end{frame}
+
+%%============================%%
+
+\subsection{\dots More Information}
+
+\begin{frame}{ On-line Reference }
+
+\begin{thebibliography}{10}
+%
+\beamertemplatearticlebibitems
+
+	\bibitem{AVnu}
+	AVnu Alliance
+	\newblock{ \em Homepage: }
+	\newblock{ \em http://avnu.org/ }
+
+\beamertemplatearticlebibitems
+
+	\bibitem{avbridges}
+	IEEE Task Group
+	\newblock{ \em Homepage: }
+	\newblock{ \em http://ieee802.org/1/pages/avbridges.html }
+
+\beamertemplatearticlebibitems
+
+	\bibitem{xillixipcore}
+	Xilinx Ethernet AVB Endpoint IP LogiCORE
+	\newblock{ \em Product Page: }
+	\newblock{ \em http://xilinx.com/products/ipcenter/DO-DI-EAVB-EPT.htm }
+
+\beamertemplatearticlebibitems
+
+	\bibitem{xmosrefdesign}
+	XMOS AVB Refferece Desgin
+	\newblock{ \em Application Design for XS1 Processor: }
+	\newblock{ \em http://xmos.com/applications/avb }
+
+\end{thebibliography}
+
+\end{frame}
+
+%%============================%%
+
+\end{document}
